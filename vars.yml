@@ -1,0 +1,3 @@
+k3s_cluster_token: "ef94QM31IMAKvd7jidImMovSM1fdrFjI"
+k3s_version: v1.29.5+k3s1
+k3s_url: https://10.105.100.56:6443

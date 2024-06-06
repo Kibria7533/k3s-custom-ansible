@@ -1,0 +1,21 @@
+- hosts: k3s_master
+  become: true
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Install K3s on master
+      shell: curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_cluster_token }} K3S_VERSION={{ k3s_version }} INSTALL_K3S_EXEC="--cluster-init" sh -
+
+    - name: Get Kubeconfig file
+      fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: ./k3s.yaml
+        flat: yes
+
+- hosts: k3s_nodes
+  become: true
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Install K3s on workers
+      shell: curl -sfL https://get.k3s.io | K3S_URL={{ k3s_url }} K3S_TOKEN={{ k3s_cluster_token }} K3S_VERSION={{ k3s_version }} sh -
