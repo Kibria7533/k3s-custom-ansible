@@ -1,3 +1,13 @@
 k3s_cluster_token: "ef94QM31IMAKvd7jidImMovSM1fdrFjI"
 k3s_version: v1.29.5+k3s1
 k3s_url: https://10.105.100.56:6443
+argocd_server: "10.105.100.56:30454"
+argocd_username: "admin"
+argocd_password: "Xj6BFxMuULrKi02f"
+repository_url: "git@10.105.100.11:root/bdris-helm-charts.git"
+docker_username: admin
+docker_password: "bdrisq1w2e3r4t5"
+
+
+
+
