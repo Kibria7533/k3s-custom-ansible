@@ -195,7 +195,7 @@
       when: repo_exists.rc != 0
 
     - name: Create bdris-frontend in Argo CD
-      shell: "~/argocd app create bdris-frontend --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-frontend --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      shell: "~/argocd app create bdris-frontend --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-frontend-stage --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
       args:
         executable: /bin/bash
       ignore_errors: true
