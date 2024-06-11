@@ -169,6 +169,12 @@
       register: argocli_install_result
       changed_when: argocli_install_result.rc != 0
 
+    - name: Login to Argo CD
+      command: ~/argocd login 10.105.100.56:30454 --username admin --password "{{ argocd_password }}" --insecure
+      register: argocd_login
+      changed_when: false
+      ignore_errors: true
+
     - name: Verify argocli installation
       command: ~/argocd version --server 10.105.100.56:30454 --insecure login
       changed_when: false
@@ -188,9 +194,43 @@
         executable: /bin/bash
       when: repo_exists.rc != 0
 
-    - name: Create application in Argo CD
-      shell: "~/argocd app create bdris-config-server --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-config-server --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml"
+    - name: Create bdris-frontend in Argo CD
+      shell: "~/argocd app create bdris-frontend --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-frontend --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
       args:
         executable: /bin/bash
       ignore_errors: true
 
+    - name: Create bdris-user-registration in Argo CD
+      shell: "~/argocd app create bdris-user-registration --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-user-registration --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+
+    - name: Create birth-registration-service in Argo CD
+      shell: "~/argocd app create birth-registration-service --repo git@10.105.100.11:root/bdris-helm-charts.git --path birth-registration-service --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+
+    - name: Create keycloakx in Argo CD
+      shell: "~/argocd app create keycloakx --repo git@10.105.100.11:root/bdris-helm-charts.git --path keycloakx --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+
+    - name: Create bdris-admin in Argo CD
+      shell: "~/argocd app create bdris-admin --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-admin --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+    - name: Create bdris-master-data in Argo CD
+      shell: "~/argocd app create bdris-master-data --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-master-data --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+
+    - name: Create bdris-role-management in Argo CD
+      shell: "~/argocd app create bdris-role-management --repo git@10.105.100.11:root/bdris-helm-charts.git --path bdris-role-management --dest-server https://kubernetes.default.svc --dest-namespace default --values preview.values.yaml --sync-policy automated"
+      args:
+        executable: /bin/bash
+      ignore_errors: true
